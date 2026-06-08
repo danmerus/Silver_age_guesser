@@ -28,7 +28,7 @@ def get_db() -> sqlite3.Connection:
 
 
 def pick_excerpt(text: str, max_lines: int = 6) -> str:
-    stanzas = [s.strip() for s in text.split("\n\n") if len(s.strip().splitlines()) >= 2]
+    stanzas = [s.strip() for s in text.split("\n\n") if len(s.strip().splitlines()) >= 3]
     if not stanzas:
         stanzas = [text.strip()]
 
