@@ -302,10 +302,12 @@ h2 { color: var(--gold); margin-bottom: 1rem; font-size: 1.8rem; }
 }
 
 .challenge-link-row button {
+  display: inline-block;
   margin: 0;
   padding: .5rem 1rem;
   font-size: .85rem;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 @media (max-width: 480px) {
