@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Серебряный век — угадай поэта</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ── SCREEN: Start ─────────────────────────────────────────── -->
+  <div id="screen-start" class="screen active">
+    <h1>Серебряный век</h1>
+    <p class="subtitle">Угадай поэта и год</p>
+    <input id="player-name" type="text" placeholder="Ваше имя" maxlength="50" autocomplete="off">
+    <button id="btn-start">Начать игру</button>
+    <div id="leaderboard-preview"></div>
+  </div>
+
+  <!-- ── SCREEN: Game ──────────────────────────────────────────── -->
+  <div id="screen-game" class="screen">
+    <div class="progress-bar">
+      <span id="turn-label">Вопрос 1 / 5</span>
+      <span id="running-score">0 очков</span>
+    </div>
+
+    <div class="poem-box">
+      <pre id="excerpt"></pre>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label>Поэт</label>
+        <input id="author-input" type="text" list="author-list" placeholder="Начните вводить имя…" autocomplete="off">
+        <datalist id="author-list">
+          {% for a in authors %}
+          <option value="{{ a }}">
+          {% endfor %}
+        </datalist>
+      </div>
+
+      <div class="control-group">
+        <label>Год: <span id="year-display">1905</span></label>
+        <input id="year-slider" type="range" min="1880" max="1940" value="1905">
+      </div>
+
+      <button id="btn-guess">Ответить</button>
+    </div>
+  </div>
+
+  <!-- ── SCREEN: Result (between turns) ───────────────────────── -->
+  <div id="screen-result" class="screen">
+    <div class="result-scores">
+      <div class="score-block" id="res-author-block">
+        <div class="score-label">Поэт</div>
+        <div class="score-value" id="res-author-score"></div>
+        <div class="score-detail" id="res-author-detail"></div>
+      </div>
+      <div class="score-block" id="res-year-block">
+        <div class="score-label">Год</div>
+        <div class="score-value" id="res-year-score"></div>
+        <div class="score-detail" id="res-year-detail"></div>
+      </div>
+      <div class="score-block total">
+        <div class="score-label">Итого за вопрос</div>
+        <div class="score-value" id="res-total-score"></div>
+      </div>
+    </div>
+
+    <div class="correct-answer">
+      <strong id="res-poem-title"></strong>
+    </div>
+
+    <div class="full-poem-box">
+      <pre id="full-poem"></pre>
+    </div>
+
+    <button id="btn-next">Следующий вопрос →</button>
+  </div>
+
+  <!-- ── SCREEN: End ───────────────────────────────────────────── -->
+  <div id="screen-end" class="screen">
+    <h2>Игра окончена!</h2>
+    <div class="final-score-display">
+      <span id="final-score"></span>
+      <span class="max-score">/ 25000</span>
+    </div>
+    <div id="leaderboard-final"></div>
+    <button id="btn-restart">Играть ещё раз</button>
+  </div>
+
+</div><!-- #app -->
+
+<script src="/static/app.js"></script>
+</body>
+</html>

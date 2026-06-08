@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.pyo
+data_azlib/
+poems_azlib.db
+poems_by_author/
+scripts_azlib/
+tmp_*.json
