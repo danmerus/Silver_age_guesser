@@ -260,6 +260,54 @@ h2 { color: var(--gold); margin-bottom: 1rem; font-size: 1.8rem; }
 .lb-score { color: var(--gold); font-weight: bold; }
 .lb-row.highlight { color: var(--gold); }
 
+/* ── Challenge ────────────────────────────────────────── */
+.challenge-banner {
+  background: var(--surface);
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--radius);
+  color: var(--gold);
+  font-size: .9rem;
+  padding: .6rem 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.challenge-section {
+  margin-bottom: 1.2rem;
+}
+
+.challenge-label {
+  font-size: .8rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: .4rem;
+  text-align: center;
+}
+
+.challenge-link-row {
+  display: flex;
+  gap: .5rem;
+}
+
+.challenge-link-row input {
+  flex: 1;
+  padding: .5rem .8rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-family: monospace;
+  font-size: .8rem;
+  min-width: 0;
+}
+
+.challenge-link-row button {
+  margin: 0;
+  padding: .5rem 1rem;
+  font-size: .85rem;
+  white-space: nowrap;
+}
+
 @media (max-width: 480px) {
   h1 { font-size: 1.9rem; }
   .result-scores { flex-direction: column; }

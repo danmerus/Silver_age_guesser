@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Серебряный век — угадай поэта</title>
-<link rel="stylesheet" href="/static/style.css?v=2">
+<link rel="stylesheet" href="/static/style.css?v=3">
 </head>
 <body>
 
@@ -14,6 +14,9 @@
   <div id="screen-start" class="screen active">
     <h1>Серебряный век</h1>
     <p class="subtitle">Угадай поэта и год</p>
+    <div id="challenge-banner" class="challenge-banner" style="display:none">
+      Вас вызвал друг — сыграйте те же стихи и сравните результаты
+    </div>
     <input id="player-name" type="text" placeholder="Ваше имя" maxlength="50" autocomplete="off">
     <button id="btn-start">Начать игру</button>
     <div id="leaderboard-preview"></div>
@@ -88,12 +91,19 @@
       <span id="final-score"></span>
       <span class="max-score">/ 25000</span>
     </div>
+    <div class="challenge-section">
+      <p class="challenge-label">Бросить вызов другу</p>
+      <div class="challenge-link-row">
+        <input id="challenge-link" type="text" readonly>
+        <button id="btn-copy" onclick="copyChallenge()">Копировать</button>
+      </div>
+    </div>
     <div id="leaderboard-final"></div>
     <button id="btn-restart">Играть ещё раз</button>
   </div>
 
 </div><!-- #app -->
 
-<script src="/static/app.js?v=2"></script>
+<script src="/static/app.js?v=3"></script>
 </body>
 </html>

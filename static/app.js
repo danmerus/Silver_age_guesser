@@ -1,6 +1,7 @@
 "use strict";
 
 const $ = id => document.getElementById(id);
+const CHALLENGE_ID = new URLSearchParams(location.search).get("challenge");
 
 let state = {
   gameId: null,
@@ -26,10 +27,13 @@ $("btn-start").addEventListener("click", async () => {
   const name = $("player-name").value.trim() || "Аноним";
   state.playerName = name;
 
-  const res = await fetch("/api/game/start", {
+  const endpoint = CHALLENGE_ID ? "/api/game/challenge" : "/api/game/start";
+  const body = CHALLENGE_ID ? { name, challenge_id: CHALLENGE_ID } : { name };
+
+  const res = await fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name }),
+    body: JSON.stringify(body),
   });
   const data = await res.json();
   if (data.error) { alert(data.error); return; }
@@ -171,8 +175,20 @@ function showResult(data) {
 
 async function showEnd(totalScore) {
   $("final-score").textContent = totalScore;
+  const challengeUrl = `${location.origin}/?challenge=${state.gameId}`;
+  $("challenge-link").value = challengeUrl;
   await loadLeaderboard("leaderboard-final");
   showScreen("end");
+}
+
+function copyChallenge() {
+  const input = $("challenge-link");
+  input.select();
+  navigator.clipboard.writeText(input.value).then(() => {
+    const btn = $("btn-copy");
+    btn.textContent = "Скопировано!";
+    setTimeout(() => { btn.textContent = "Копировать"; }, 2000);
+  });
 }
 
 async function loadLeaderboard(containerId) {
@@ -199,4 +215,8 @@ function escHtml(s) {
 }
 
 // ── Init ─────────────────────────────────────────────────────────
+if (CHALLENGE_ID) {
+  $("challenge-banner").style.display = "block";
+  $("btn-start").textContent = "Принять вызов";
+}
 loadLeaderboard("leaderboard-preview");

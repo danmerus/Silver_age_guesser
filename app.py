@@ -193,6 +193,29 @@ def guess():
     return jsonify(response)
 
 
+@app.route("/api/game/challenge", methods=["POST"])
+def start_challenge():
+    data = request.get_json()
+    source_id = (data.get("challenge_id") or "").strip()
+    player_name = (data.get("name") or "Аноним").strip()[:50]
+
+    with get_db() as conn:
+        source = conn.execute("SELECT poem_ids FROM games WHERE id=?", (source_id,)).fetchone()
+    if not source:
+        return jsonify({"error": "Вызов не найден"}), 404
+
+    poem_ids = json.loads(source["poem_ids"])
+    game_id = str(uuid.uuid4())
+    with get_db() as conn:
+        conn.execute(
+            "INSERT INTO games (id, player_name, poem_ids) VALUES (?,?,?)",
+            (game_id, player_name, json.dumps(poem_ids)),
+        )
+
+    first_poem = _get_poem_for_turn(poem_ids[0])
+    return jsonify({"game_id": game_id, "turn": 0, "total_turns": TURNS, "poem": first_poem})
+
+
 @app.route("/api/leaderboard")
 def leaderboard():
     with get_db() as conn:
