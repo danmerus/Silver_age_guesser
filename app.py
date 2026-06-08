@@ -9,9 +9,14 @@ from flask import Flask, jsonify, render_template, request
 
 DB_PATH = Path(__file__).parent / "poems.db"
 TURNS = 5
-MAX_YEAR_DIFF = 10      # beyond this, year score = 0
+MAX_YEAR_DIFF = 10
 YEAR_MIN = 1880
-YEAR_MAX = 1940         # slider + DB filter range
+YEAR_MAX = 1940
+
+_portraits_path = Path(__file__).parent / "static" / "portraits.json"
+PORTRAITS: dict[str, list[str]] = (
+    json.loads(_portraits_path.read_text("utf-8")) if _portraits_path.exists() else {}
+)
 
 app = Flask(__name__)
 
@@ -162,6 +167,10 @@ def guess():
                 (game["player_name"], total),
             )
 
+    slug = poem["author_slug"]
+    portraits = PORTRAITS.get(slug, [])
+    portrait = random.choice(portraits) if portraits else None
+
     response = {
         "turn": turn,
         "score": result,
@@ -169,6 +178,7 @@ def guess():
             "author": poem["author_name"],
             "year": poem["year"],
             "title": poem["title"],
+            "portrait": portrait,
         },
         "full_poem": poem["text"],
         "finished": finished,

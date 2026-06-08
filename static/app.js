@@ -137,6 +137,14 @@ function showResult(data) {
   $("res-poem-title").textContent =
     `«${correct.title || "* * *"}» — ${correct.author}${yearLabel}`;
 
+  const portrait = $("res-portrait");
+  if (correct.portrait) {
+    portrait.src = correct.portrait;
+    portrait.style.display = "block";
+  } else {
+    portrait.style.display = "none";
+  }
+
   $("full-poem").textContent = full_poem;
   $("running-score").textContent = `${running_total} очков`;
 

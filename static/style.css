@@ -198,6 +198,18 @@ pre {
 
 .correct-answer strong { color: var(--text); }
 
+#res-portrait {
+  display: block;
+  width: 120px;
+  height: 150px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin: 0 auto .8rem;
+  filter: grayscale(20%);
+}
+
 .full-poem-box {
   background: var(--surface);
   border: 1px solid var(--border);
